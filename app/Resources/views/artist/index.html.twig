@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des artistes - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'artist.indexTitle' | trans }}</h1>
+
+    <small>{{ artists | length }} artistes en base</small>
+    <div>{{ 'artist.indexSubtitle' | trans({'%count%': artists | length}) }}</div>
+
+    {% if app.user %}
+    <div>
+        <a href="{{ path('app_artist_create') }}">Ajouter</a>
+        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+    </div>
+    {% endif %}
+
+    {% for artist in artists %}
+    <div class="row">
+        <div class="col-md-3"><img width="100" height="100" src="http://lorempixel.com/100/100/sports/{{ loop.index }}"></div>
+        <div class="col-md-3">{{ artist.name | title }}</div>
+        <div class="col-md-3">
+            Créé en {{ artist.creationYear }} -
+            <small>{{ artist.albums | length }} album(s)</small> -
+            Ajouté par <strong>{{ artist.createdBy.username }}</strong>
+        </div>
+        <div class="col-md-3">
+            <a class="btn btn-primary" href="{{ path('app_artist_show', {'id': artist.id}) }}">Voir</a>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

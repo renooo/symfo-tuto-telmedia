@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme artistForm 'form/theme.html.twig' %}
+
+{% block body %}
+    <h1>Ajouter un artiste</h1>
+
+    <div>
+        <a href="{{ path('app_artist_index') }}">Retour à la liste</a>
+    </div>
+
+    {{ form_start(artistForm) }}
+    {{ form_end(artistForm) }}
+
+{% endblock %}
+
+{% block inline_javascript %}
+
+    <script type="text/javascript">
+        $('select').select2();
+    </script>
+
+{% endblock %}

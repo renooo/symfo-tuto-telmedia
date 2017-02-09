@@ -1,0 +1,118 @@
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        app:
+            settings:
+                index:
+                    analysis:
+                        analyzer:
+                            custom_analyzer :
+                                type     :    custom
+                                tokenizer:    nGram
+                                filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter]
+                            custom_search_analyzer :
+                                type     :    custom
+                                tokenizer:    standard
+                                filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter]
+                            suggest_analyzer:
+                                type: custom
+                                tokenizer: standard
+                                filter: [standard, lowercase, asciifolding, elision]
+                        tokenizer:
+                            nGram:
+                                type:     nGram
+                                min_gram: 2
+                                max_gram: 20
+                        filter:
+                            snowball:
+                                type:     snowball
+                                language: French
+                            elision:
+                                type:     elision
+                                articles: [l, m, t, qu, n, s, j, d]
+                            stopwords:
+                                type:      stop
+                                stopwords: [_french_]
+                                ignore_case : true
+                            worddelimiter :
+                                type:      word_delimiter
+            types:
+                artist:
+                    _source:
+                        excludes: [biography]
+                    mappings:
+                        name:
+                            type: text
+                            analyzer: custom_analyzer
+                            search_analyzer: custom_search_analyzer
+                            boost: 6
+                            fields:
+                                raw:
+                                    type: keyword
+                        creationYear:
+                            type: date
+                            format: "yyyy"
+                            fields:
+                                raw:
+                                    type: integer
+                        biography:
+                            type: text
+                        genres:
+                            property_path: genreLabels
+                            type: text
+                            analyzer: custom_analyzer
+                            search_analyzer: custom_search_analyzer
+                            fields:
+                                raw:
+                                    type: keyword
+                        albumCount:
+                            type: integer
+                        albums:
+                            type: nested
+                            include_in_all: false
+                            properties:
+                                title:
+                                    type: text
+                                    analyzer: custom_analyzer
+                                    search_analyzer: custom_search_analyzer
+                                releaseDate:
+                                    type: date
+                                    format: "dateOptionalTime"
+                    persistence:
+                        driver: orm
+                        model: AppBundle\Entity\Artist
+                        provider: ~
+                        listener: ~
+                        finder: ~
+
+                album:
+                    mappings:
+                        title:
+                            type: text
+                            analyzer: custom_analyzer
+                            search_analyzer: custom_search_analyzer
+                        releaseDate:
+                            type: date
+                            format: "dateOptionalTime"
+                        artist:
+                            type: object
+                            properties:
+                                name:
+                                    type: text
+                                    analyzer: custom_analyzer
+                                    search_analyzer: custom_search_analyzer
+                                genres:
+                                    property_path: genreLabels
+                                    type: text
+                                    analyzer: custom_analyzer
+                                    search_analyzer: custom_search_analyzer
+                                    fields:
+                                        raw:
+                                            type: keyword
+                    persistence:
+                        driver: orm
+                        model: AppBundle\Entity\Album
+                        provider: ~
+                        listener: ~
+                        finder: ~

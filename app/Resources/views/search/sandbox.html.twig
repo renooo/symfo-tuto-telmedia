@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Recherche</h1>
+
+    <small>{{ artists | length }} résultat(s)</small>
+
+    {% for artist in artists %}
+    <div>
+        <h2>{{ artist.transformed.name }}</h2>
+        <p>
+            {% if artist.result.highlights.biography is defined %}
+            {{ artist.result.highlights.biography }}
+            {% else %}
+            {{ artist.transformed.biography }}
+            {% endif %}
+        </p>
+        {#<small>Score : {{ artist.result.score }}</small>#}
+        {{ dump(artist.result) }}
+    </div>
+    {% endfor %}
+{% endblock %}

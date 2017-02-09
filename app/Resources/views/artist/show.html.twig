@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ artist.name | title }} - Fiche artiste - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div>
+        <a href="{{ path('app_artist_index') }}">Retour à la liste</a>
+        {% if is_granted('ROLE_USER') %}
+        | <a href="{{ path('app_artist_edit', {'id': artist.id}) }}">Modifier</a>
+        {% endif %}
+    </div>
+    <h1>{{ artist.name | title }}</h1>
+    <small>Groupe créé en <strong>{{ artist.creationYear }}</strong></small>
+    -
+    <em>page vue {{ app.session.get('artistViewCount_' ~ artist.id) }} fois</em>
+
+    <div>
+        <small>Genres : </small>
+        {% for genre in artist.genres %}
+        <a href="#" class="btn btn-primary">{{ genre.label }}</a>
+        {% endfor %}
+    </div>
+
+    <h2>Biographie</h2>
+    <div>
+        <p>{{ artist.biography | nl2br }}</p>
+    </div>
+
+    <h2>Discographie</h2>
+    <small>{{ artist.albums | length }} album(s)</small>
+    {% for album in artist.albums %}
+    <div class="row">
+        <div class="col-md-4">{{ album.releaseDate | date }}</div>
+        <div class="col-md-4">{{ album.title | title }}</div>
+        <div class="col-md-4"><a class="btn btn-primary" href="#">Voir</a></div>
+    </div>
+    {% endfor %}
+
+    <h2>Dates de concert</h2>
+    {% for tourDate in tourDates %}
+    <div class="row">
+        <div class="col-sm-4">{{ tourDate.datetime | date }}</div>
+        <div class="col-sm-4">{{ tourDate.title }}</div>
+        <div class="col-sm-4"><a target="_blank" href="{{ tourDate.facebook_rsvp_url }}">WWW</a></div>
+    </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme searchForm 'form/theme.html.twig' %}
+
+{% block body %}
+<h1>Rechercher un artiste</h1>
+
+{{ form_start(searchForm) }}
+<div class="row">
+    <div class="col-sm-6">{{ form_row(searchForm.name) }}</div>
+    <div class="col-sm-6">{{ form_row(searchForm.decade) }}</div>
+</div>
+{{ form_end(searchForm) }}
+
+<h2>Résultat(s)</h2>
+
+{% for artist in artists %}
+<div class="row">
+    <div class="col-sm-4">{{ artist.creationYear }}</div>
+    <div class="col-sm-4">{{ artist.name }}</div>
+    <div class="col-sm-4"></div>
+</div>
+{% endfor %}
+
+{% endblock %}
+
+{% block inline_javascript %}
+
+<script type="text/javascript">
+    $('select').select2();
+</script>
+
+{% endblock %}

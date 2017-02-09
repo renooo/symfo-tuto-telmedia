@@ -1,0 +1,17 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+help:
+    path: "/au-secours"
+    defaults: { _controller: "AppBundle:Help:index" }
+
+help_hero:
+    path: "/help-me/{hero}"
+    defaults:
+        _controller: "AppBundle:Help:hero"
+    requirements:
+        hero: "[a-z]+"
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

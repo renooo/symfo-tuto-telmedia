@@ -1,0 +1,11 @@
+artist:
+    indexTitle: Liste des artistes
+    indexSubtitle: Tous nos %count% artistes
+    search:
+        name: Nom
+        decade: Décénie
+        genres: Genre(s)
+        search: Rechercher
+    form:
+        name:
+            minMessage: "Il va falloir taper au moins {{ limit }} caractères."
