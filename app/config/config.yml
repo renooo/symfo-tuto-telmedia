@@ -86,3 +86,6 @@ fos_user:
     from_email:
         address:        webmaster@tuto.local
         sender_name:    webmaster
+#    registration:
+#        confirmation:
+#            enabled: true
