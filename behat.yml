@@ -1,0 +1,17 @@
+default:
+    suites:
+        default:
+            contexts:
+                - FeatureContext
+                #- Behatch\Context\BrowserContext
+    extensions:
+        Behat\Symfony2Extension: ~
+        Behat\MinkExtension:
+            base_url: "/app_test.php/"
+            sessions:
+                default:
+                    symfony2: ~
+                #javascript:
+                #    selenium2:
+                #        wd_host: "http://radins-phantomjs:8910/wd/hub"
+        #Behatch\Extension: ~

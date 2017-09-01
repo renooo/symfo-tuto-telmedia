@@ -32,12 +32,14 @@
         "eightpoints/guzzle-bundle": "^5.3",
         "fzaninotto/faker": "^1.6",
         "friendsofsymfony/elastica-bundle": "dev-master",
-        "friendsofsymfony/user-bundle": "~2.0@dev"
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "phpunit/phpunit": "5.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
-        "doctrine/doctrine-fixtures-bundle": "^2.3"
+        "doctrine/doctrine-fixtures-bundle": "^2.3",
+        "behat/behat": "^3.3"
     },
     "scripts": {
         "symfony-scripts": [
