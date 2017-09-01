@@ -8,12 +8,20 @@
 
 namespace AppBundle\EventListener;
 
+use AppBundle\Client\BandsInTownClient;
 use AppBundle\Event\ArtistEvent;
 use AppBundle\Events\ArtistEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ArtistEventSubscriber implements EventSubscriberInterface
 {
+    private $bandsInTownClient;
+
+    public function __construct(BandsInTownClient $bandsInTownClient)
+    {
+        $this->bandsInTownClient = $bandsInTownClient;
+    }
+
     public static function getSubscribedEvents()
     {
         return [
@@ -33,6 +41,7 @@ class ArtistEventSubscriber implements EventSubscriberInterface
     {
         dump(__METHOD__);
         dump($event->getArtist()->getName());
+        $name = $this->bandsInTownClient->normalizeArtistName($event->getArtist()->getName());
     }
 
     public function onEdit(ArtistEvent $event)

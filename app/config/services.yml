@@ -16,6 +16,7 @@ services:
 
     artist.subscriber:
         class: AppBundle\EventListener\ArtistEventSubscriber
+        arguments: ["@bandsintown.client"]
         tags:
             - { name: "kernel.event_subscriber" }
 

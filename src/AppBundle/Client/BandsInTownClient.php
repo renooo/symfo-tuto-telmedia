@@ -30,7 +30,16 @@ class BandsInTownClient
         $this->appId = $appId;
     }
 
-    function getTourDates(Artist $artist)
+    public function normalizeArtistName($artistName)
+    {
+        if (!is_string($artistName)) {
+            return '';
+        }
+
+        return strtolower($artistName);
+    }
+
+    public function getTourDates(Artist $artist)
     {
         $bitUrl = sprintf('/artists/%s/events.json', $artist->getName());
         $tourDates = [];

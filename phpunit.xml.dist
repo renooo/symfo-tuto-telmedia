@@ -24,7 +24,7 @@
             <exclude>
                 <directory>src/*Bundle/Resources</directory>
                 <directory>src/*/*Bundle/Resources</directory>
-                <directory>src/*/Bundle/*Bundle/Resources</directory>
+                <directory>src/*clBundle/*Bundle/Resources</directory>
             </exclude>
         </whitelist>
     </filter>
